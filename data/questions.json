@@ -1,0 +1,340 @@
+[
+    {
+        "id": 1,
+        "question": "What does the <!DOCTYPE html> declaration in HTML define?",
+        "options": [
+            {"id": "a", "text": "The type of document and the version of HTML being used"},
+            {"id": "b", "text": "The default font for the web page"},
+            {"id": "c", "text": "The location of the HTML file"},
+            {"id": "d", "text": "The language of the document"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 2,
+        "question": "What type of CSS is generally recommended for designing large webpages?",
+        "options": [
+            {"id": "a", "text": "Inline"},
+            {"id": "b", "text": "Internal"},
+            {"id": "c", "text": "External"},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 3,
+        "question": "CSS stands for",
+        "options": [
+            {"id": "a", "text": "Cascading Style Sheet"},
+            {"id": "b", "text": "Cascading Style Sheets"},
+            {"id": "c", "text": "Cascading Styles Sheet"},
+            {"id": "d", "text": "Cascading Styles Sheets"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 4,
+        "question": "HTML is what type of language?",
+        "options": [
+            {"id": "a", "text": "Programming language"},
+            {"id": "b", "text": "Structuring language"},
+            {"id": "c", "text": "Scripting language"},
+            {"id": "d", "text": "Markup language"}
+        ],
+        "correct_answer": "d"
+    },
+    {
+        "id": 5,
+        "question": "HTML web pages can be read and rendered by_________?",
+        "options": [
+            {"id": "a", "text": "Server"},
+            {"id": "b", "text": "Compiler"},
+            {"id": "c", "text": "Web browser"},
+            {"id": "d", "text": "Website"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 6,
+        "question": "What is HTML?",
+        "options": [
+            {"id": "a", "text": "HTML describes the structure of a webpage"},
+            {"id": "b", "text": "HTML is the standard markup language mainly used to create web pages"},
+            {"id": "c", "text": "HTML consists of a set of elements that helps the browser how to view the content"},
+            {"id": "d", "text": "All of the mentioned"}
+        ],
+        "correct_answer": "d"
+    },
+    {
+        "id": 7,
+        "question": "What does the <hr> tag represent in an HTML document?",
+        "options": [
+            {"id": "a", "text": "Horizontal tab"},
+            {"id": "b", "text": "Horizontal rule"},
+            {"id": "c", "text": "Hyperlink reference"},
+            {"id": "d", "text": "Header row"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 8,
+        "question": "Which HTML tag is used for making character appearance bold?",
+        "options": [
+            {"id": "a", "text": "<bold>content</bold>"},
+            {"id": "b", "text": "<b>content</b>"},
+            {"id": "c", "text": "<strong>content</strong>"},
+            {"id": "d", "text": "Both B and C"}
+        ],
+        "correct_answer": "d"
+    },
+    {
+        "id": 9,
+        "question": "Which of the following things are necessary to create an HTML page?",
+        "options": [
+            {"id": "a", "text": "A text editor"},
+            {"id": "b", "text": "Web Browser"},
+            {"id": "c", "text": "Both A and B"},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 10,
+        "question": "Which is the latest CSS version?",
+        "options": [
+            {"id": "a", "text": "CSS 2"},
+            {"id": "b", "text": "CSS 4"},
+            {"id": "c", "text": "CSS 5"},
+            {"id": "d", "text": "CSS 3"}
+        ],
+        "correct_answer": "d"
+    },
+    {
+        "id": 11,
+        "question": "Which of the following is true about HTML tags?",
+        "options": [
+            {"id": "a", "text": "Are case sensitive"},
+            {"id": "b", "text": "Are not case sensitive"},
+            {"id": "c", "text": "Are in uppercase"},
+            {"id": "d", "text": "Are in lowercase"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 12,
+        "question": "Which of the following tags are unpaired tags?",
+        "options": [
+            {"id": "a", "text": "<p> and <em>"},
+            {"id": "b", "text": "<b> and <i>"},
+            {"id": "c", "text": "<br> and <hr>"},
+            {"id": "d", "text": "<mark> and <em>"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 13,
+        "question": "Which of the following is the correct way to apply CSS Styles?",
+        "options": [
+            {"id": "a", "text": "In an external CSS file"},
+            {"id": "b", "text": "Inside an HTML element"},
+            {"id": "c", "text": "Inside the <head> section of an HTML page"},
+            {"id": "d", "text": "All of the mentioned"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 14,
+        "question": "What will be the result of this HTML code?",
+        "code_snippet": "<p><strong>Important:</strong>This is a critical message.</p>",
+        "options": [
+            {"id": "a", "text": "Makes 'Important' bold"},
+            {"id": "b", "text": "Makes 'Important' italic"},
+            {"id": "c", "text": "Adds a line break before 'This is a critical message.'"},
+            {"id": "d", "text": "Emphasizes 'Important' in yellow"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 15,
+        "question": "Which type of CSS is used in the below code?",
+        "code_snippet": "<p style='border:2px solid red;'>",
+        "options": [
+            {"id": "a", "text": "Inline CSS"},
+            {"id": "b", "text": "Internal CSS"},
+            {"id": "c", "text": "External CSS"},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 16,
+        "question": "What is the tree structure in HTML?",
+        "options": [
+            {"id": "a", "text": "The sequence of elements in a document"},
+            {"id": "b", "text": "The visual layout of the web page"},
+            {"id": "c", "text": "The hierarchical representation of HTML elements"},
+            {"id": "d", "text": "The links between web pages"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 17,
+        "question": "What is the correct syntax for referring an external CSS?",
+        "options": [
+            {"id": "a", "text": "<link rel='stylesheet' type='text/css' href='VS4U.css'>"},
+            {"id": "b", "text": "<stylesheet rel='stylesheet' type='text/css' href='VS4U.css'>"},
+            {"id": "c", "text": "<style rel='stylesheet' type='text/css' href='VS4U.css'>"},
+            {"id": "d", "text": "All of the above"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 18,
+        "question": "The 'color:red' in CSS can be known as _____________:",
+        "options": [
+            {"id": "a", "text": "Value"},
+            {"id": "b", "text": "Declaration"},
+            {"id": "c", "text": "Element"},
+            {"id": "d", "text": "Rule"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 19,
+        "question": "Which of the following is the correct syntax for using the HTML style attribute?",
+        "options": [
+            {"id": "a", "text": "<tagname style='property: value;'>"},
+            {"id": "b", "text": "<tagname style='property;'>"},
+            {"id": "c", "text": "<tagname style>"},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "a"
+    },
+    {
+        "id": 20,
+        "question": "Select the output for the below code",
+        "code_snippet": "<!DOCTYPE html>\n<html>\n<body>\n<p>Print(10+20);</p>\n</body>\n</html>",
+        "options": [
+            {"id": "a", "text": "30"},
+            {"id": "b", "text": "error"},
+            {"id": "c", "text": "Print(10+20);"},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 21,
+        "question": "What is a 'style sheet' in CSS?",
+        "options": [
+            {"id": "a", "text": "A single CSS rule"},
+            {"id": "b", "text": "A file that contains CSS rules"},
+            {"id": "c", "text": "A tool to edit HTML code"},
+            {"id": "d", "text": "A set of JavaScript functions"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 22,
+        "question": "The <span> tag in HTML is used for:",
+        "options": [
+            {"id": "a", "text": "Structuring large sections of content"},
+            {"id": "b", "text": "Adding a line break"},
+            {"id": "c", "text": "Grouping inline elements together"},
+            {"id": "d", "text": "Creating a hyperlink"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 23,
+        "question": "Which of the following is the correct structure for an HTML document?",
+        "options": [
+            {"id": "a", "text": "<html><head><body></body></head></html>"},
+            {"id": "b", "text": "<html><head></head><body></body></html>"},
+            {"id": "c", "text": "<html><body><head></body></html>"},
+            {"id": "d", "text": "<head><html><body></body></html></head>"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 24,
+        "question": "Select the output for the below code",
+        "code_snippet": "<!DOCTYPE html>\n<html>\n<body>\n<p>My first paragraph.</p>\n</html>",
+        "options": [
+            {"id": "a", "text": "error"},
+            {"id": "b", "text": "My First Paragraph"},
+            {"id": "c", "text": "My first paragraph."},
+            {"id": "d", "text": "None of the above"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 25,
+        "question": "Which tag is used to create a blank line in HTML?",
+        "options": [
+            {"id": "a", "text": "<em>"},
+            {"id": "b", "text": "<a>"},
+            {"id": "c", "text": "<b>"},
+            {"id": "d", "text": "<br>"}
+        ],
+        "correct_answer": "d"
+    },
+    {
+        "id": 26,
+        "question": "The <div> tag in HTML is used for:",
+        "options": [
+            {"id": "a", "text": "Formatting text"},
+            {"id": "b", "text": "Structuring content into sections"},
+            {"id": "c", "text": "Styling images"},
+            {"id": "d", "text": "Displaying tables"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 27,
+        "question": "What does the following code do?",
+        "code_snippet": "<p><mark>VStand4U</mark></p>",
+        "options": [
+            {"id": "a", "text": "It highlights the entire paragraph"},
+            {"id": "b", "text": "It changes the text color to blue"},
+            {"id": "c", "text": "It highlights 'VStand4U'"},
+            {"id": "d", "text": "It makes the 'VStand4U' text bold"}
+        ],
+        "correct_answer": "c"
+    },
+    {
+        "id": 28,
+        "question": "What will the following code display?",
+        "code_snippet": "<!DOCTYPE html>\n<html>\n<head><title>1Step2</title></head>\n<body>\n<b>Welcome to VStand4U</b>\n<p>This is an example paragraph.</p>\n</body>\n</html>",
+        "options": [
+            {"id": "a", "text": "The page will display '1Step2' as the heading and 'Welcome to VStand4U' as the body."},
+            {"id": "b", "text": "The page will display 'Welcome to VStand4U' in bold and 'This is an example paragraph.' as the body."},
+            {"id": "c", "text": "The page will not display any content."},
+            {"id": "d", "text": "The page will display only the title '1Step2'."}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 29,
+        "question": "What does the following code do?",
+        "code_snippet": "<p>HTML stands for<em>Hypertext Markup Language</em></p>",
+        "options": [
+            {"id": "a", "text": "Makes 'Hypertext Markup Language' bold"},
+            {"id": "b", "text": "Makes 'Hypertext Markup Language' italic"},
+            {"id": "c", "text": "Adds a line break before 'Hypertext Markup Language'"},
+            {"id": "d", "text": "Emphasizes 'Hypertext Markup Language' in red"}
+        ],
+        "correct_answer": "b"
+    },
+    {
+        "id": 30,
+        "question": "What will the following code display?",
+        "code_snippet": "<p>This is<mark>Parushuram</mark>from<strong>VStand4U</strong>Solutions.</p>",
+        "options": [
+            {"id": "a", "text": "The entire text will be bold."},
+            {"id": "b", "text": "The entire text will be highlighted."},
+            {"id": "c", "text": "The word 'Parushuram' will be bold, and the word 'VStand4U' will be italicized."},
+            {"id": "d", "text": "The word 'Parushuram' will be highlighted, and the word 'VStand4U' will be bold."}
+        ],
+        "correct_answer": "d"
+    }
+]

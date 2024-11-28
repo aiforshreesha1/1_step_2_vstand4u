@@ -1,0 +1,391 @@
+@import url("https://fonts.googleapis.com/css?family=Dosis:600");
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----- GENERAL ----- */
+
+body {
+  font-family: 'Dosis', Arial, sans-serif; /* Added fallback fonts */
+  color: white;
+  background: linear-gradient(to right, #4aa7d9, #ffffff, #00000066);
+  background-size: 200% 200%; /* For animation */
+  animation: backgroundShift 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem 4rem 4rem 4rem;
+  position: relative;
+  overflow: auto; /* Allow scrolling */
+}
+
+ul, li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+/* -----------------------------------------------
+MOBILE
+Content of mobile menu
+----------------------------------------------- */
+.mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+
+/* -----------------------------------------------
+LABEL
+----------------------------------------------- */
+.mobile__label {
+  margin-top: 2rem;
+  border: solid 2px white;
+  display: inline-block;
+  overflow: hidden;
+  padding: 12px 9px;
+  width: 25px;
+  white-space: nowrap;
+  z-index: 1001;
+}
+
+.mobile__label:hover {
+  cursor: pointer;
+}
+
+/* ANIMATION POSITION ON HOVER */
+.mobile__label:hover .label__line {
+  margin-left: 0px;
+}
+
+/* ANIMATION DELAY */
+.mobile__label:nth-child(2):hover .label__line {
+  transition-delay: .1s;
+}
+
+.mobile__label:nth-child(3):hover .label__line {
+  transition-delay: .2s;
+}
+
+/* LINES CONTENT */
+.mobile__label__content {
+  font-size: 0;
+  line-height: 0;
+  height: 2px;
+  margin-bottom: 5px;
+}
+
+.mobile__label__content:last-child {
+  margin-bottom: 0px;
+}
+
+/* WHITE LINES */
+.label__line {
+  background-color: white;
+  width: 24px;
+  height: 2px;
+  display: inline-block;
+  margin-left: -33px;
+  margin-right: 43px;
+  transition: margin-left .2s linear;
+}
+
+/* -----------------------------------------------
+INPUT
+----------------------------------------------- */
+.mobile__input {
+  display: none;
+}
+
+/* -----------------------------------------------
+NAV
+----------------------------------------------- */
+.mobile__nav {
+  margin-top: 10px;
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-height 1s linear, max-width .8s linear;
+}
+
+.nav__item {
+  white-space: nowrap;
+}
+
+.nav__item a {
+  text-decoration: none;
+  display: block;
+  padding: 5px 0px;
+  color: white;
+}
+
+.nav__item a:after {
+  display: block;
+  width: 15px;
+  height: 2px;
+  background-color: white;
+  content: '';
+}
+
+.mobile__input:checked + .mobile__nav {
+  max-width: 100vw;
+  max-height: 100vh;
+  position: fixed;
+  z-index: 1000;
+  transition: max-height 1s linear, max-width 0.8s linear;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+  padding: 40px 40px 2rem 40px;
+}
+
+.left-section {
+  position: absolute;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  object-fit: cover;
+  max-width: 100%;
+  height: 70%;
+  padding: 2rem;
+}
+
+.left-section img {
+  left: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* REGISTRATION CONTAINER */
+.container {
+  position: absolute;
+  right: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-family: "Muli-Bold";
+  text-align: center;
+  color: #333;
+  letter-spacing: 2px;
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3rem 1rem 2rem;
+}
+
+.form-group {
+  color: #555;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-bottom: 15px;
+}
+
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrapper label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 20px;
+  background: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.form-control:focus {
+  border: 1px solid #0825e3;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  width: 100%;
+  height: 40px;
+  background-color: #3dc4f1;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  font-family: "Muli-SemiBold";
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #f11a09;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.checkbox label {
+  color: black;
+  padding-left: 5px;
+  cursor: pointer;
+  gap: 5px;
+  font-size: 14px;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.container p {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  padding: 1rem;
+}
+
+.container p a {
+  font-family: "Muli-SemiBold";
+  font-size: 14px;
+  font-weight: 600;
+  color: #3dc4f1;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  /* Header size */
+  h3 {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  /* Form adjustments for mobile */
+  .form-group {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+
+  .form-control {
+    width: 250px;
+    height: 35px;
+    padding: 0 10px;
+  }
+
+  /* Button styling */
+  button {
+	width: 80%;
+    height: 35px;
+    font-size: 12px;
+    font-size: 11px;
+  }
+
+  /* Responsive menu adjustments */
+  .mobile__label {
+	position: relative;
+    padding: 10px 8px;
+    width: 22px;
+	margin-left: 20px;
+	z-index: 1001px;
+	background-color : blue;
+  }
+
+  .label__line {
+    width: 22px;
+    height: 1.5px;
+  }
+
+  .nav__item a {
+    font-size: 1em;
+    padding: 8px 0;
+    color: rgb(33, 135, 251);
+	margin-left: 20px;
+  }
+
+  .nav__item a:after {
+    background-color: rgb(0, 255, 242);
+  }
+
+  .wrapper {
+    flex-direction: column;
+    gap: 40px;
+	margin-left: 190px;
+  }
+
+  .left-section {
+    position: relative; /* Ensure it doesn't overlap */
+    width: 100%; /* Full width */
+    height: auto; /* Adjust height */
+	margin-left: 150px;
+  }
+
+  .left-section img {
+    max-width: 100%;
+  }
+
+  .container {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
+    box-shadow: none;
+  }
+}

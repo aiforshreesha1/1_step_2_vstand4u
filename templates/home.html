@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .home-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .left-section, .right-section {
+            flex: 1;
+            margin: 10px;
+        }
+        .middle-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#85f089 {{ progress }}%, #f3f3f3 0);
+            display: flex;
+            align-items: top;
+            justify-content: center;
+            font-size: 34px;
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-top: 30px;
+            position: relative;
+            z-index: -100;
+            margin-top: 20px;
+        }
+        .progress-circle::after {
+            padding-top: 60px;
+            content: '{{ progress }}%';
+            position: absolute;
+            font-size: 18px;
+            color: #333;
+        }
+        .video-item {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .video-item:hover {
+            background-color: #f1f1f1;
+        }
+        @media(max-width: 767px) {
+            .left-section {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<br>
+<div class="home-container">
+    <div class="left-section">
+        <div class="card">
+            <div class="card-body">
+                <center><h2 class="card-title">User Details</h2></center>
+                <!-- <img src="{{ url_for('static', filename='images/profile_pictures/' ~ user['profile_picture']) }}" alt="Profile Picture" class="img-thumbnail mb-3"> -->
+                <center><img src="{{ user['profile_picture'] }}" alt="Profile Picture" class="img-thumbnail mb-3" style="width: 200px; height: 200px;"></center>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Name:</span> {{ user_name }}</p>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Email:</span> {{ user['email'] }}</p>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">College:</span> {{ user['college_name'] }}</p>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Qualification:</span> {{ user['qualification'] }}</p>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Gender:</span> {{ user['gender'] }}</p>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Status:</span> {{ status }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="middle-section">
+        <h2>Video Progress</h2>
+        <div class="progress-circle">
+            <span>{{ completed_videos }}/{{ total_videos }}</span>
+        </div>
+        <br><br><br>
+        <h4>Continue from where you left:</h4>
+        {% if last_video %}
+        <br>
+        <div class="video-item" onclick="location.href='/videos/{{ last_video.id }}#t={{ last_video.last_position }}'" style="background: linear-gradient(to left, #c6ffdd, #fbd786, #f7797d);">
+            {{ last_video.title }}
+            <span style="color: rgb(17, 54, 174);font-weight: 600;">
+                &emsp; Continue from {{ "{:.2f}".format((last_video.last_position or 0) / 60) }} minutes
+            </span>            
+        </div>
+        {% else %}
+        <p>No videos watched yet.</p>
+        {% endif %}
+    </div>
+    <div class="right-section">
+        <div class="card">
+            <div class="card-body">
+                <center><h2 class="card-title">Last Watched</h2></center>
+                <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Last Watched On:</span> {{ last_watched['last_watched_at'] or 'N/A' }}</p>
+                <!-- <p class="card-text"><span style="color: rebeccapurple;font-weight: 500;">Total Watch Duration:</span> {{ last_watched['total_watch_duration'] or 0 }} seconds</p> -->
+				<p class="card-text">
+					<span style="color: rebeccapurple; font-weight: 500;">Total Watch Duration:</span> 
+					{{ "{:.3f}".format((total_watch_duration or last_watched['total_watch_duration'] or 0) / 60) }} minutes
+				</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Progress bar animation
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = "{{ progress }}%";
+    });
+</script>
+{% endblock %}

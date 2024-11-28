@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <title>Classroom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f1117;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to left, #c0f5d5, #efd087, #ee9093) !important;
+        }
+        .video-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-item {
+            background-color: #1e2028;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .video-item:hover {
+            background-color: #2a2d37;
+        }
+        .video-icon {
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        .video-title {
+            flex-grow: 1;
+        }
+        .video-duration {
+            color: #a0a0a0;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+        .completed-icon {
+            color: #4CAF50;
+            margin-left: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+        }
+        .locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .locked .video-icon::after {
+            content: "🔒";
+            margin-left: 5px;
+        }
+        .test-section {
+            margin-top: 16px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .test-section.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .test-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .test-title {
+            flex-grow: 1;
+            color :#080101;
+            font-weight: bolder;
+        }
+        .take-test-btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .test-completed, .test-locked {
+            font-style: italic;
+            color: #6c757d;
+        }
+        .certification-section {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .certification-section:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .certification-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        .certification-title {
+            color : red;
+            flex-grow: 1;
+            font-weight: bold;
+        }
+        .completed-icon {
+            color: #4CAF50;
+            margin-left: 10px;
+        }
+        .download-certificate-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-certificate-btn:hover {
+            background-color: #45a049;
+        }
+        .certification-locked, .not-qualified {
+            font-style: italic;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 3px;
+            background-color: #e0e0e0;
+        }
+        .not-qualified {
+            color: #d32f2f;
+            background-color: #ffcdd2;
+        }
+        .certification-section {
+            background-color: #e8f5e9;
+            border: 2px solid #a5d6a7;
+        }
+        .certification-section.locked {
+            background-color: #f5f5f5;
+            border: 2px solid #e0e0e0;
+        }
+
+        .certification-icon {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="video-list">
+        <h1>Course Content</h1>
+        {% set ns = namespace(previous_completed=true) %}
+        {% for video in videos %}
+            <div class="video-item {% if not ns.previous_completed %}locked{% endif %}" data-video-id="{{ video.id }}">
+                <span class="video-icon">▶</span>
+                <span class="video-title">{{ video.title }}</span>
+                <span class="video-duration">
+                    {% if video.completed %}
+                        {{ video.duration }}
+                    {% elif ns.previous_completed %}
+                        {{ "%02d:%02d:%02d"|format(video.watch_duration//3600, (video.watch_duration%3600)//60, video.watch_duration%60) }}/{{ video.duration }}
+                    {% else %}
+                        00:00:00/{{ video.duration }}
+                    {% endif %}
+                </span>
+                {% if video.completed %}
+                    <span class="completed-icon">✓</span>
+                {% endif %}
+            </div>
+            {% set ns.previous_completed = video.completed %}
+        {% endfor %}
+
+        <div class="test-section {% if not all_videos_completed %}locked{% endif %}">
+            <span class="test-icon">📝</span>
+            <span class="test-title">Final Test</span>
+            {% if all_videos_completed %}
+                <a href="{{ url_for('test') }}" class="take-test-btn">Take Test</a>
+            {% else %}
+                <span class="test-locked">Locked</span>
+            {% endif %}
+        </div>        
+
+        <div class="certification-section {% if not test_passed %}locked{% endif %}">
+            <span class="certification-icon">🎓</span>
+            <span class="certification-title">Certification</span>
+            {% if test_passed %}
+                <a href="{{ url_for('download_certificate') }}" class="download-certificate-btn">Download Certificate</a>
+            {% elif test_taken %}
+                <span class="not-qualified">Not Qualified</span>
+            {% else %}
+                <span class="certification-locked">Locked</span>
+            {% endif %}
+        </div>        
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoItems = document.querySelectorAll('.video-item:not(.locked)');
+            
+            videoItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-video-id');
+                    window.location.href = `/videos/${videoId}`;
+                });
+            });
+        });
+    </script>
+    {% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let profileImg = document.querySelector('.profile-pic');
+            if (profileImg && profileImg.src.startsWith('/')) {
+                profileImg.src = '../' + profileImg.src;
+            }
+        });
+    </script>
+</body>
+</html>

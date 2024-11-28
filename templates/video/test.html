@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .question p {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+        .code-snippet {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .option label {
+            cursor: pointer;
+            font-weight: 300;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        #timer { 
+            position: fixed;
+            top: 10px; 
+            right: 10px; 
+            font-size: 1.5em;
+            font-weight: bolder;
+            color: #ffffff; 
+            background-color: #ff6347;
+            padding: 10px 20px;
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #fullscreen-prompt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            text-align: center;
+            width: 60%;
+        }
+
+        #fullscreen-prompt h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        #start-fullscreen {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .instructions {
+            text-align: left;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+        .instructions ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="fullscreen-prompt">
+        <h2>Please Start the Test in Full-Screen Mode</h2>
+        <button id="start-fullscreen">Start Full-Screen</button>
+        <div class="instructions">
+            <h3>Test Instructions</h3>
+            <ul>
+                <li>Do not try to switch windows or open other tabs.</li>
+                <li>Allow camera and microphone permissions; without them, you cannot take the test.</li>
+                <li>Do not exit from full-screen mode.</li>
+                <li>Do not press any other buttons like Windows or switch window/tab buttons; it will automatically submit the test.</li>
+                <li>You are being watched; be careful.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h1>Final Test</h1>
+        <div id="timer">40:00</div>
+        <form id="testForm" action="{{ url_for('submit_test') }}" method="post">
+            {% for question in questions %}
+            <div class="question">
+                <p>{{ loop.index }}. {{ question.question }}</p>
+                {% if question.code_snippet %}
+                <pre class="code-snippet"><code>{{ question.code_snippet|e }}</code></pre>
+                {% endif %}
+                {% for option in question.options %}
+                <div class="option">
+                    <input type="radio" id="{{ question.id }}_{{ option.id }}" name="{{ question.id }}" value="{{ option.id }}">
+                    <label for="{{ question.id }}_{{ option.id }}">{{ option.text }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Submit Test</button>
+        </form>
+    </div>
+
+
+    <script>
+        let initialLoad = true;
+        let time = 2400; 
+        const timerElement = document.getElementById('timer');
+        const testForm = document.getElementById('testForm');
+        const recordedChunks = [];  
+        document.querySelector('.test-container').style.display = 'none'; 
+        const timerInterval = setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            time--;
+
+            if (time < 0) {
+                clearInterval(timerInterval);
+                stopRecordingAndSubmit(); 
+            }
+        }, 1000);
+
+        document.getElementById('start-fullscreen').addEventListener('click', () => {
+            requestFullScreen().then(() => {
+                document.getElementById('fullscreen-prompt').style.display = 'none';
+                document.querySelector('.test-container').style.display = 'block';  // Show test content
+            }).catch(error => {
+                alert("Full-screen mode is required to take the test.");
+                console.error('Full-screen request denied:', error);
+            });
+        });
+
+        function requestFullScreen() {
+            if (document.documentElement.requestFullscreen) {
+                return document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                return document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                return document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                return document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(stream => {
+                    const mediaRecorder = new MediaRecorder(stream);
+
+                    mediaRecorder.start();
+
+                    document.getElementById('testForm').addEventListener('submit', stopRecordingAndUpload);
+
+                    function stopRecordingAndUpload(event) {
+                        event.preventDefault();
+                        mediaRecorder.stop();
+
+                        mediaRecorder.onstop = async () => {
+                            console.log('Recording stopped without saving.');
+                            window.onbeforeunload = null;
+                            testForm.submit();
+                        };
+                    };
+                })
+                .catch(error => {
+                    alert("Camera and microphone permissions are required to take the test.");
+                    console.error('Camera and microphone access denied:', error);
+                    window.location.href = '/videos';
+                })
+                .finally(() => initialLoad = false); 
+
+            // Malpractice Detection
+            window.addEventListener('blur', () => {
+                if (!initialLoad) {
+                    stopRecordingAndSubmit();
+                }
+            });
+        });
+
+        // Full-screen enforcement
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement && !initialLoad) {
+                stopRecordingAndSubmit();
+            }
+        });
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'i' || e.key === 'I' || e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        window.onbeforeunload = () => "Are you sure you want to leave? Your progress will be lost.";
+
+        function stopRecordingAndSubmit() {
+            const submitEvent = new Event('submit', { cancelable: true });
+            testForm.dispatchEvent(submitEvent);
+        }
+    </script>
+</body>
+</html>

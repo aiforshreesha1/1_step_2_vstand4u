@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script defer src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+      {% endif %}
+    {% endwith %}
+
+    <div class="mobile">
+        <label class="mobile__label" for="checkbox">
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+        </label>
+        <!--mobile__label-->
+        <input class="mobile__input" type="checkbox" id="checkbox" />
+        <nav class="mobile__nav">
+          <ul>
+            <li class="nav__item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="nav__item"><a href="{{ url_for('about') }}">About</a></li>
+            <li class="nav__item"><a href="{{ url_for('help') }}">Help</a></li>
+          </ul>
+        </nav>
+    </div>
+    
+
+      <div class="container">
+        <div class="top"></div>
+        <div class="bottom"></div>
+        <div class="center">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">          
+          <h2>Student Login</h2>
+          <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required class="animate-input">
+              
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required class="animate-input">
+              
+              <button type="submit" class="animate-button">Login</button>
+              <p>Not a user? <a href="{{ url_for('signup') }}">Signup</a></p>
+              <p><a href="{{ url_for('forgot_password') }}">Forgot Password?</a></p>
+          </form>
+      </div>
+
+
+    </div>
+ 
+  <!-- Persons -->
+  <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzJmeWdlN3Iyc3Uxa2RrdGN0Nmc1M3R3eXczaWFtaTlucmJyNGZjMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KBak9cGjwE6xEEIOdf/giphy.webp" 
+      alt="Person 1" class="person person1" id="person1">
+  <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExem9mbnF5cTFveTZxNjlxbmFjZXUzeHFlZWV5OTBuOXV5Y3F0cTUxNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QWMkcwUkktNGqgF3Sw/giphy.webp" 
+      alt="Person 2" class="person person2" id="person2">
+
+  <!-- Stairs -->
+  <img src="https://www.cundiffsteel.com/images/stairs-icon_2x.png?crc=211758747" 
+      alt="Stairs 1" class="stairs stairs1" id="stairs1">
+
+  <!-- Door -->  
+     <div class="door">
+        <div class="door1">
+          <img src="https://th.bing.com/th/id/R.a412b3b118c47521c36cfb447783ccab?rik=9C5lCcokl4BwWg&riu=http%3a%2f%2fvstand4usolutions.com%2fwp-content%2fuploads%2f2024%2f05%2flogo.png&ehk=s8j8D0RWVMfoTw2g4Ki4y3BDShpKfvEm4d8Set%2bPlng%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo1">
+          <div class="text-container">
+            <span>1</span>
+            <span>Step</span>
+            <span>2</span>
+            <span>VS4U</span>
+          </div>
+        </div>
+        <div class="door2">
+          <h1>
+            Welcome <br>to <br>VStand4U!
+          </h1>          
+        </div>
+     </div>
+
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <title>{{ video.title }} - vstand4u</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f1117;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .video-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+        .user-info {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .controls button {
+            margin-right: 10px;
+        }
+        .video-player::-webkit-media-controls-timeline {
+            display: none !important;
+        }
+        .video-player::-moz-range-thumb {
+            display: none !important;
+        }
+        .video-player::-ms-fill-lower,
+        .video-player::-ms-fill-upper,
+        .video-player::-ms-thumb {
+            display: none !important;
+        }
+        .video-player::-webkit-media-controls-timeline,
+        .video-player::-webkit-media-controls-current-time-display,
+        .video-player::-webkit-media-controls-time-remaining-display {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="video-container">
+        <div class="user-info">
+            <span class="profile-name">{{ user_name }}</span>
+        </div>
+        <video id="videoPlayer" class="video-player" controls disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback noplaybackrate">
+            <source src="{{ video.video_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button id="saveProgressBtn">Save Progress</button>
+        </div>
+    </div>
+
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        const saveProgressBtn = document.getElementById('saveProgressBtn');
+
+        videoPlayer.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        videoPlayer.controlsList = "nodownload noplaybackrate";
+        videoPlayer.disablePictureInPicture = true;
+
+        videoPlayer.addEventListener('seeked', function(e) {
+            if (videoPlayer.currentTime > this.lastTime) {
+                videoPlayer.currentTime = this.lastTime;
+            }
+        });
+
+        videoPlayer.addEventListener('timeupdate', function() {
+            this.lastTime = this.currentTime;
+        });
+
+        videoPlayer.addEventListener('loadedmetadata', function() {
+            const progressBar = videoPlayer.querySelector('input[type="range"]');
+            if (progressBar) {
+                progressBar.style.pointerEvents = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }, false);
+
+        videoPlayer.currentTime = {{ progress.last_position if progress else 0 }};
+
+        saveProgressBtn.addEventListener('click', () => saveProgress(false));
+
+        videoPlayer.addEventListener('ended', () => {
+            saveProgress(true);
+        });
+
+        function saveProgress(completed = false) {
+            const watchDuration = Math.floor(videoPlayer.currentTime);
+            const lastPosition = videoPlayer.currentTime;
+
+            fetch('/update_progress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    video_id: {{ video.id }},
+                    watch_duration: watchDuration,
+                    last_position: lastPosition,
+                    completed: completed
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Progress saved successfully!');
+                    if (completed) {
+                        window.location.href = '{{ url_for("video_list") }}';
+                    }
+                } else {
+                    alert('Error saving progress.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error saving progress.');
+            });
+        }
+
+        videoPlayer.src = URL.createObjectURL(new Blob([''], {type: 'video/mp4'}));
+        fetch('{{ video.video_url }}')
+            .then(response => response.blob())
+            .then(blob => {
+                videoPlayer.src = URL.createObjectURL(blob);
+            });
+
+        videoPlayer.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+
+        videoPlayer.style.userSelect = 'none';
+        videoPlayer.style.webkitUserSelect = 'none';
+        videoPlayer.style.msUserSelect = 'none';
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
+        function disableDevTools() {
+            if (window.devtools.isOpen) {
+                window.location.href = "about:blank";
+            }
+        }
+        setInterval(disableDevTools, 100);
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+        let profileImg = document.querySelector('.profile-pic');
+        if (profileImg) {
+            let currentSrc = profileImg.getAttribute('src');
+            if (currentSrc.startsWith('/static/')) {
+                profileImg.src = '../' + currentSrc;
+            } else if (currentSrc.startsWith('static/')) {
+                profileImg.src = '../' + currentSrc;
+            } else if (!currentSrc.startsWith('../')) {
+                profileImg.src = '../../' + currentSrc;
+            }
+        }
+        });
+    </script>
+    {% endblock %}
+
+</body>
+</html>

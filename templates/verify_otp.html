@@ -1,0 +1,56 @@
+<!-- verify_otp.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forgot_password.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+      {% endif %}
+    {% endwith %}
+
+    <div class="mobile">
+        <label class="mobile__label" for="checkbox">
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+        </label><!--mobile__label-->
+        <input class="mobile__input" type="checkbox" id="checkbox" />
+        <nav class="mobile__nav">
+          <ul>
+            <li class="nav__item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="nav__item"><a href="{{ url_for('about') }}">About</a></li>
+            <li class="nav__item"><a href="{{ url_for('help') }}">Help</a></li>
+          </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h2>OTP Verification</h2>
+        <form id="otpForm" action="{{ url_for('verify_otp') }}" method="POST">
+            <label for="otp">Enter OTP</label>
+            <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+            <div class="temp">
+				<button type="submit">Verify OTP</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

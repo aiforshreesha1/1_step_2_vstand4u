@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <title>Help</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup2.css') }}">
+    <script defer src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");  // Show the first flash message in an alert
+        </script>
+      {% endif %}
+    {% endwith %}
+    <div class="mobile">
+        <label class="mobile__label" for="checkbox">
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+          <div class="mobile__label__content">
+            <span class="label__line"></span>
+            <span class="label__line"></span>
+          </div>
+        </label>
+        <input class="mobile__input" type="checkbox" id="checkbox" />
+        <nav class="mobile__nav">
+          <ul>
+            <li class="nav__item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="nav__item"><a href="{{ url_for('about') }}">About</a></li>
+            <li class="nav__item"><a href="{{ url_for('help') }}">Help</a></li>
+          </ul>
+        </nav>
+    </div>
+    <div class="container">
+        <form action="" id="helpForm" method="POST">
+                <h3>Help Request</h3>
+                    <div class="form-wrapper">
+                         <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required class="form-control">
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required class="form-control">
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required  class="form-control">
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required  class="form-control">
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="content">Message:</label>
+          <textarea id="content" name="content" required class="form-control" style="padding-top: 26px;"></textarea>
+                    </div>
+                 <button type="submit">Submit</button>
+            </form>  
+    </div>
+
+    <script src="{{ url_for('static', filename='js/help.js') }}"></script>
+</body>
+</html>
